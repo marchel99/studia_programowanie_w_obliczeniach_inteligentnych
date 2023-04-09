@@ -26,6 +26,7 @@ class RANSAC:
             thresholded = (
                 self.loss(y[ids][self.n :], maybe_model.predict(X[ids][self.n :]))
                 < self.t
+                
             )
 
             inlier_ids = ids[self.n :][np.flatnonzero(thresholded).flatten()]
