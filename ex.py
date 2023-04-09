@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 a = 2
-
+y = 2
 x = 1
 abserr = 1.0E-5
 #
