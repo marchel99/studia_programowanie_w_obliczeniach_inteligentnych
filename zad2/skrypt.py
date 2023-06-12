@@ -64,6 +64,7 @@ def classify_texture_samples(input_file, test_size):
 
 
 
+
 # Wczytanie kolejnych obrazów i wycięcie fragmentów tekstury
 image_directory = 'ścieżka/do/katalogu/z/obrazami'
 output_directory = 'ścieżka/do/katalogu/z/wyciętymi/fragmentami'
