@@ -2,8 +2,6 @@ import random
 import numpy as np
 import math
 
-
-
 def generate_points_on_surface(num_points, width, length, height=0):
     if height == 0:
         points = np.random.rand(num_points, 3) - 0.5
