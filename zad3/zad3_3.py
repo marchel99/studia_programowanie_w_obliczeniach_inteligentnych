@@ -34,7 +34,9 @@ def extract_texture_features(img_folder, csv_path):
     # Zapis do pliku csv
     df.to_csv(csv_path, index=False)
 
+
+
 # Używanie funkcji
-img_folder = r"C:\Users\ziomk\OneDrive\Pulpit\MGR I SEM\Programowanie w obliczeniach inteligentnych\lab3\FOTO1_samples"
-csv_path = r"C:\Users\ziomk\OneDrive\Pulpit\MGR I SEM\Programowanie w obliczeniach inteligentnych\lab3\texture_features.csv"
+img_folder = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO1_samples"
+csv_path = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\texture_features.csv"
 extract_texture_features(img_folder, csv_path)

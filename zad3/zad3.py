@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from skimage import io, color, util
-from skimage.feature.texture import greycomatrix, greycoprops
+from skimage.feature import greycomatrix, greycoprops
 
 def extract_texture_features(img_folder, csv_path):
     # Wartości kierunku i odległości do GLCM
