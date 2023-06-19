@@ -1,40 +1,41 @@
+from PIL import Image, ImageFilter
 import os
-import numpy as np
-import pandas as pd
-from skimage import io, color, util
-from skimage.feature import greycomatrix, greycoprops
 
-def extract_texture_features(img_folder, csv_path):
-    # Wartości kierunku i odległości do GLCM
-    distances = [1, 3, 5]
-    angles = [0, np.pi/4, np.pi/2, 3*np.pi/4]  # 0, 45, 90, 135 stopni
-    properties = ['dissimilarity', 'correlation', 'contrast', 'energy', 'homogeneity', 'ASM']
+def cut_texture(img_folder, save_folder, img_size=(512, 512), sample_size=(128, 128)):
+    if not os.path.exists(save_folder):
+        os.makedirs(save_folder)
 
-    # DataFrame do przechowywania wyników
-    df = pd.DataFrame(columns=['filename'] + properties)
-
-    # Iteracja przez każdy obraz w folderze tekstury
+    # Iteruje przez wszystkie pliki w folderze z obrazami
     for filename in os.listdir(img_folder):
-        if filename.endswith('.jpg') or filename.endswith('.png'):  # Dodaj tu inne formaty, jeśli są używane
+        if filename.endswith('.jpg') or filename.endswith('.png'):
             img_path = os.path.join(img_folder, filename)
-            img = io.imread(img_path, as_gray=True)  # Konwersja do skali szarości
+            img = Image.open(img_path)
 
-            # Zmniejszenie głębi jasności do 5 bitów (64 poziomy)
-            img = util.img_as_ubyte(img)
-            img = img // 4
+            # Zmiana rozmiaru obrazu
+            img = img.resize(img_size, Image.Resampling.LANCZOS)
 
-            # Obliczanie GLCM i cech
-            glcm = greycomatrix(img, distances, angles, levels=64, symmetric=True, normed=True)
-            feature_values = [greycoprops(glcm, prop).ravel().mean() for prop in properties]
+            # Liczba próbek wzdłuż x i y
+            xnum = img.size[0] // sample_size[0]
+            ynum = img.size[1] // sample_size[1]
 
-            # Dodawanie do DataFrame
-            series_to_append = pd.Series([filename] + feature_values, index=df.columns)
-            df = pd.concat([df, series_to_append.to_frame().T], ignore_index=True)
+            for i in range(xnum):
+                for j in range(ynum):
+                    # Wycinanie próbki
+                    box = (i * sample_size[0], j * sample_size[1], (i + 1) * sample_size[0], (j + 1) * sample_size[1])
+                    sample = img.crop(box)
 
-    # Zapis do pliku csv
-    df.to_csv(csv_path, index=False)
+                    # Zapis próbki do folderu zapisu
+                    sample_filename = f"{filename[:-4]}_sample_{i}_{j}.jpg"
+                    sample_path = os.path.join(save_folder, sample_filename)
+                    sample.save(sample_path)
+
+
+
+
+
+
 
 # Używanie funkcji
-img_folder = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO3_samples"
-csv_path = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\texture_features.csv"
-extract_texture_features(img_folder, csv_path)
+img_folder = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO2"
+save_folder = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO2_samples"
+cut_texture(img_folder, save_folder, img_size=(512, 512), sample_size=(128, 128))
