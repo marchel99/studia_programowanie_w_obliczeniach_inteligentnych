@@ -5,41 +5,39 @@ from skimage import io, color, util
 from skimage.feature import greycomatrix, greycoprops
 
 def extract_texture_features(img_folders, csv_path):
-    # Wartości kierunku i odległości do GLCM
+   
     distances = [1, 3, 5]
     angles = [0, np.pi/4, np.pi/2, 3*np.pi/4]  # 0, 45, 90, 135 stopni
     properties = ['dissimilarity', 'correlation', 'contrast', 'energy', 'homogeneity', 'ASM']
 
-    # Lista do przechowywania wyników
+  
     rows = []
 
-    # Iteracja przez każdy folder tekstur
     for img_folder in img_folders:
-        # Iteracja przez każdy obraz w folderze
+       
         for filename in os.listdir(img_folder):
             if filename.endswith('.jpg') or filename.endswith('.png'):
                 img_path = os.path.join(img_folder, filename)
                 img = io.imread(img_path, as_gray=True)
 
-                # Zmniejszenie głębi jasności do 5 bitów (64 poziomy)
+               
                 img = util.img_as_ubyte(img)
                 img = img // 4
 
-                # Obliczanie GLCM i cech
                 glcm = greycomatrix(img, distances, angles, levels=64, symmetric=True, normed=True)
                 feature_values = [greycoprops(glcm, prop).ravel().mean() for prop in properties]
 
-                # Dodawanie do listy wierszy
+          
                 row = [filename] + feature_values
                 rows.append(row)
 
-    # Utworzenie DataFrame z listy wierszy
+
     df = pd.DataFrame(rows, columns=['filename'] + properties)
 
-    # Zapis do pliku csv
+    #csv
     df.to_csv(csv_path, index=False)
 
-# Przykładowe użycie
+
 img_folders = [
     r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO1_samples",
     r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO2_samples",
