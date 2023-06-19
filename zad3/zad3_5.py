@@ -5,7 +5,16 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
 # wczytanie danych
-data = pd.read_csv(r"C:\Users\ziomk\OneDrive\Pulpit\MGR I SEM\Programowanie w obliczeniach inteligentnych\lab3\texture_features.csv")
+data = pd.read_csv(r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\texture_features.csv")
+
+
+
+
+
+
+
+
+
 
 # etykiety klas
 data['class'] = data['filename'].apply(lambda x: x.split('_')[2])
