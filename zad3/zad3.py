@@ -31,10 +31,6 @@ def cut_texture(img_folder, save_folder, img_size=(512, 512), sample_size=(128, 
 
 
 
-
-
-
-
 # Używanie funkcji
 img_folder = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO3"
 save_folder = r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad3\FOTO3_samples"
