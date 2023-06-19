@@ -9,15 +9,10 @@ data = pd.read_csv(r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_p
 
 
 
-
-
-
-
-
-
-
 # etykiety klas
-data['class'] = data['filename'].apply(lambda x: x.split('_')[2])
+# data['class'] = data['filename'].apply(lambda x: x.split('_')[2])
+data['class'] = 'unknown'
+
 
 # wyodrębnienie wektorów cech
 X = data[['dissimilarity', 'correlation', 'contrast', 'energy', 'homogeneity', 'ASM']]
