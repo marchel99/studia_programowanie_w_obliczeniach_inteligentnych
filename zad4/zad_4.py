@@ -6,17 +6,13 @@ from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import pandas as pd
 
-# a. Wczytywanie danych z pliku csv
-df = pd.read_csv(r"C:\Users\ziomk\OneDrive\Pulpit\MGR I SEM\Programowanie w obliczeniach inteligentnych\laboratorium4\tekstury.csv")
+df = pd.read_csv(r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad4\texture_features.csv")
 
-# b. Wyodrębnić wektory cech do macierzy X i etykiety kategorii do wektora y.
 X = df.drop('filename', axis=1).values
 y = df['filename'].apply(lambda x: x.split('_')[0]).values
-
-# c. Wstępne przetwarzanie danych
-# 1. Wykonać kodowanie całkowitoliczbowe dla wektora y → y_int
 label_encoder = LabelEncoder()
 y_int = label_encoder.fit_transform(y)
+
 
 # 2. Wykonać kodowanie 1 z n dla wektora y_int → y_onehot
 onehot_encoder = OneHotEncoder(sparse=False)
