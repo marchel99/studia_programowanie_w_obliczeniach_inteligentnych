@@ -7,6 +7,7 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import pandas as pd
 
 
+
 df = pd.read_csv(r"C:\Users\mrchl\OneDrive\Desktop\Programowanie\PWOI\studia_programowanie_w_obliczeniach_inteligentnych\zad4\texture_features.csv")
 
 X = df.drop('filename', axis=1).values
